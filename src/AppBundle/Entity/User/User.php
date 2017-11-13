@@ -5,6 +5,7 @@ namespace AppBundle\Entity\User;
 use AppBundle\Model\User\Role;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\UserRepository")
  * @Constraints\UniqueEntity("email")
  */
-class User implements UserInterface
+class User implements UserInterface, JWTUserInterface
 {
     /**
      * @var int
@@ -306,5 +307,18 @@ class User implements UserInterface
         $this->plainPassword = $plainPassword;
 
         return $this;
+    }
+
+    /**
+     * Creates a new instance from a given JWT payload.
+     *
+     * @param string $username
+     * @param array $payload
+     *
+     * @return JWTUserInterface
+     */
+    public static function createFromPayload($username, array $payload)
+    {
+        // TODO: Implement createFromPayload() method.
     }
 }
