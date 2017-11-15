@@ -2,10 +2,10 @@
 
 namespace AppBundle\Entity\User;
 
+use AppBundle\Entity\Folder\FoldersStructure;
 use AppBundle\Model\User\Role;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\UserRepository")
  * @Constraints\UniqueEntity("email")
  */
-class User implements UserInterface, JWTUserInterface
+class User implements UserInterface
 {
     /**
      * @var int
@@ -85,6 +85,12 @@ class User implements UserInterface, JWTUserInterface
      * @JMS\Groups({"api"})
      */
     protected $email;
+
+    /**
+     * @var FoldersStructure
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Folder\FoldersStructure", mappedBy="user", orphanRemoval=true)
+     */
+    protected $folderStructure;
 
 
     /**
@@ -310,15 +316,26 @@ class User implements UserInterface, JWTUserInterface
     }
 
     /**
-     * Creates a new instance from a given JWT payload.
+     * Set folderStructure
      *
-     * @param string $username
-     * @param array $payload
+     * @param FoldersStructure $folderStructure
      *
-     * @return JWTUserInterface
+     * @return User
      */
-    public static function createFromPayload($username, array $payload)
+    public function setFolderStructure(FoldersStructure $folderStructure = null)
     {
-        // TODO: Implement createFromPayload() method.
+        $this->folderStructure = $folderStructure;
+
+        return $this;
+    }
+
+    /**
+     * Get folderStructure
+     *
+     * @return FoldersStructure
+     */
+    public function getFolderStructure()
+    {
+        return $this->folderStructure;
     }
 }
