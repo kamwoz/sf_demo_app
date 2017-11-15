@@ -1,8 +1,6 @@
 <?php
 
-
 namespace AppBundle\Service;
-
 
 use AppBundle\Entity\Folder\Folder;
 use AppBundle\Entity\Folder\FoldersStructure;
