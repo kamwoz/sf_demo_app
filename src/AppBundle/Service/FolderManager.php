@@ -54,7 +54,7 @@ class FolderManager
     private function createFromArray($folderRaw, Folder $parent = null)
     {
         $folder = new Folder();
-        $folder->setAllowedExtensions($folderRaw['allowedExtensions'])
+        $folder->setAllowedExtensions($folderRaw['allowed_extensions'])
             ->setName($folderRaw['name'])
             ->setParent($parent);
 

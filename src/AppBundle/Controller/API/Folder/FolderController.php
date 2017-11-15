@@ -11,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class FolderController extends DefaultAPIController
 {
@@ -24,7 +23,8 @@ class FolderController extends DefaultAPIController
      *
      * @param Request $request
      *
-     * @return JsonResponse|Response
+     * @return JsonResponse
+     * @throws \Exception
      */
     public function postFolderStructureAction(Request $request)
     {
@@ -79,5 +79,21 @@ class FolderController extends DefaultAPIController
         ];
 
         return new JsonResponse($data, 400);
+    }
+
+    /**
+     * @Route(
+     *     path="/api/folder",
+     *     name="app_api_folder_get_structure"
+     * )
+     * @Method({"GET"})
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function getFolderStructureAction()
+    {
+        $folder = $this->getUser()->getFolderStructure();
+        return new JsonResponse($this->serialize($folder, 'json', SerializationContext::create()->setGroups([ 'api' ])));
     }
 }
