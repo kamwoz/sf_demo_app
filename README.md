@@ -1,4 +1,4 @@
-.checkout
+Server run
 =========
 
-A Symfony project created on November 10, 2017, 10:56 am.
+``php bin/console server:run``
